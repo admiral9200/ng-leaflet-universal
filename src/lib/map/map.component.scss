@@ -1,0 +1,143 @@
+$marker-width: 35px;
+$marker-height: $marker-width;
+
+.map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .map-frame {
+    height: 100%;
+
+    #map {
+      height: 100%;
+    }
+  }
+}
+
+::ng-deep.map-marker-icon {
+  .item-marker {
+    border-radius: 50% 50% 50% 0;
+    border: 4px solid #fff;
+    width: $marker-width !important;
+    height: $marker-height !important;
+    background-color: white;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    transform: rotate(316deg);
+
+    .icon-image {
+      width: $marker-width;
+      height: $marker-height;
+      border-radius: 50%;
+      background-position: center;
+      background-size: cover;
+      transform: rotate(-316deg);
+    }
+  }
+}
+
+/* MAP CARD */
+::ng-deep.leaflet-popup-content-wrapper {
+  border-radius: 0px !important;
+  box-shadow: 1px 1px 10px -2px rgba(0, 0, 0, 0.4);
+}
+
+::ng-deep.leaflet-container a.leaflet-popup-close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 3px !important;
+  color: #ff0f0f98;
+  text-decoration: none;
+  font-weight: bold;
+  background: #f2f2f2;
+
+  &:hover {
+    color: #ff0f0f;
+  }
+}
+
+::ng-deep.leaflet-popup {
+  bottom: 5px !important;
+  left: -180px !important;
+}
+
+::ng-deep.leaflet-popup-content {
+  min-width: 350px !important;
+  height: auto !important;
+
+  .map-card {
+    .map-card-body {
+      padding: 10px;
+
+      .top-card {
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 100px;
+          height: 100px;
+          margin-right: 20px;
+        }
+
+        .content {
+          .map-card-title {
+            font-weight: bold;
+            margin: 0;
+          }
+
+          .map-card-subtitle {
+            font-weight: 400;
+            font-size: 14px;
+            color: #585858;
+            margin: 0;
+          }
+
+          .map-card-content {
+            h4 {
+              font-size: 16px;
+            }
+
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      .cta-wrapper {
+        margin-top: 20px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 15px;
+
+        .map-card-cta {
+          cursor: pointer;
+          text-decoration: none;
+          border: none;
+          padding: 8px 10px;
+          font-size: 12px;
+          text-align: center;
+          margin-bottom: 6px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 2px;
+
+          &:hover {
+            opacity: 0.6;
+          }
+
+          i {
+            margin-right: 5px;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}
