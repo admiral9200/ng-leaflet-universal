@@ -86,7 +86,7 @@ Once you set or update your marker list using the _updateMarkers_ function, the 
 
 We provide you an marker component that you can use for setting your locations easily, setting the location point (Latitude and Longitude) and the icon you would like to show into it.
 
-![Marker example](./assets/images/marker.png)
+![Marker example](./src/lib/assets/images/marker.png)
 
 **Model:**
 Key | Type | Definition
@@ -113,7 +113,7 @@ myMarker: Marker = {
 
 This library contains a card component that you can customize and adapt to your own needs. These cards will be open when you click in your markers. Every single element in this cards includes several parameters that allows you customize that element's style, and a class param that you can use for setting your own css class.
 
-![Marker card example](./assets/images/card.png)
+![Marker card example](./src/lib/assets/images/card.png)
 
 **Model**:
 | Key | Type | Definition
