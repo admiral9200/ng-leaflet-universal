@@ -18,13 +18,13 @@ You can install this library via npm using the next command on your project
 After installing, import the module in your application:
 
 ```typescript
-import { NgLeafletUniversal } from "ng-leaflet-universal";
+import { NgLeafletUniversalModule } from 'ng-leaflet-universal';
 ```
 
 ```typescript
 imports: [
 	...
-	NgLeafletUniversal
+	NgLeafletUniversalModule
 ],
 ```
 
@@ -59,19 +59,21 @@ Add marker to your map using the _updateMarkers_ function in your own component
 
 ```typescript
 import { AfterViewInit, Component, ViewChild } from  '@angular/core';
-import { MapComponent } from  'ng-leaflet-universal/map/map.component';
-import { Marker } from  'ng-leaflet-universal/models/marker.interface';
+import { MapComponent } from 'ng-leaflet-universal';
+import { Marker } from 'ng-leaflet-universal/lib/models/marker.interface';
 
 @Component({
-selector:  'app-custom-component',
-templateUrl:  './custom-component.component.html',
-styleUrls: ['./custom-component.component.scss'],
+	selector:  'app-custom-component',
+	templateUrl:  './custom-component.component.html',
+	styleUrls: ['./custom-component.component.scss'],
 })
 export  class  CustomComponentComponent  implements AfterViewInit {
-markers: Marker[];
 @ViewChild(MapComponent) mapComponent: MapComponent;
+markers: Marker[];
 
-constructor() { }
+constructor() { 
+	this.markers = [];
+}
 
 ngAfterViewInit(): void {
 	this.mapComponent.updateMarkers(this.markers);
