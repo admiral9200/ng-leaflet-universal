@@ -10,4 +10,5 @@ export interface Marker {
 export interface Location {
   latitude: number;
   longitude: number;
+  [key: string]: any;
 }

@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MapComponent } from 'projects/ng-leaflet-universal/src/lib/map/map.component';
 import { Marker } from 'projects/ng-leaflet-universal/src/lib/models/marker.interface';
+import {
+  ROUTE_GEOMETRIE,
+  ROUTE_OVERVIEW,
+} from 'projects/ng-leaflet-universal/src/lib/models/route-options.interface';
 
 @Component({
   selector: 'app-root',
@@ -50,5 +54,27 @@ export class AppComponent implements AfterViewInit {
     console.log('after');
 
     this.mapComponent.updateMarkers(this.markers);
+
+    this.mapComponent
+      .getRoute(
+        {
+          latitude: -69.936224,
+          longitude: 18.485419,
+        },
+        {
+          latitude: -69.93884067510572,
+          longitude: 18.48514785,
+        },
+        {
+          steps: true,
+          overview: ROUTE_OVERVIEW.FALSE,
+          annotations: false,
+          geometries: ROUTE_GEOMETRIE.POLYLINE,
+          alternatives: 2,
+        }
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }
