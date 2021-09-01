@@ -51,8 +51,6 @@ export class AppComponent implements AfterViewInit {
   ];
 
   ngAfterViewInit(): void {
-    console.log('after');
-
     this.mapComponent.updateMarkers(this.markers);
 
     this.mapComponent

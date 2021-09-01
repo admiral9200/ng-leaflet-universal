@@ -125,11 +125,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       lon1 = minLng;
       lon2 = maxLng;
     }
-
-    console.log({ lat1, lon1, lat2, lon2 });
-
     this.maxDistance = this.calcCrow(lat1, lon1, lat2, lon2);
-
     this.callMap();
   }
 
