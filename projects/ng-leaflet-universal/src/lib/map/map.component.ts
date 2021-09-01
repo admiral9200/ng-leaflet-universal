@@ -1,10 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MapService } from '../services/map.service';
 import { Marker } from '../models/marker.interface';
-// import { MarkerCard } from '../models/marker-card.interface';
 import { Location } from '../models/marker.interface';
 import { BridgeService } from '../services/bridge.service';
-import { MarkerCard } from '../models/marker-card.interface';
 
 @Component({
   selector: 'ng-leaflet-universal',
@@ -19,14 +17,17 @@ export class MapComponent implements OnInit, AfterViewInit {
   constructor(
     private mapService: MapService,
     private bridgeService: BridgeService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.bridgeService.getCardSelected().subscribe((selection) => {
       const marker = this.markerList.find(
         (markers) => markers.id === selection
       );
-      this.centerTo(marker.location);
+
+      if (marker) {
+        this.centerTo(marker.location);
+      }
     });
   }
 
@@ -36,7 +37,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
         attribution: 'Map data © OpenStreetMap contributors',
-
       }
     ).addTo(this.map);
   }
@@ -53,7 +53,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  displayCard(data: Marker, markerSelected): void {
+  displayCard(data: Marker, markerSelected: any): void {
     this.centerTo(data.location);
     const html = this.mapService.getCardHtml(data.card);
     if (!markerSelected._popup) {
@@ -83,7 +83,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       .on('click', () => this.displayCard(itemMarker, singleMarker));
   }
 
-  calculateCenter(markers): void {
+  calculateCenter(markers: Marker[]): void {
     const latitudes = markers
       .map((a) => a.location.latitude)
       .sort((a, b) => a - b);
@@ -118,6 +118,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       lon2 = maxLng;
     }
 
+    console.log({ lat1, lon1, lat2, lon2 });
+
     this.maxDistance = this.calcCrow(lat1, lon1, lat2, lon2);
 
     this.callMap();
@@ -127,9 +129,13 @@ export class MapComponent implements OnInit, AfterViewInit {
     let ratio = 6371;
     let zoom = 1;
 
-    while (ratio > this.maxDistance) {
-      ratio = ratio * 0.67;
-      zoom++;
+    if (this.maxDistance > 0) {
+      while (ratio > this.maxDistance) {
+        ratio = ratio * 0.67;
+        zoom++;
+      }
+    } else {
+      zoom = 14;
     }
 
     return zoom;

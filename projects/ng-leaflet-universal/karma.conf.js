@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/angular-leaflet-universal'),
+      dir: require('path').join(__dirname, '../../coverage/ng-leaflet-universal'),
       subdir: '.',
       reporters: [
         { type: 'html' },

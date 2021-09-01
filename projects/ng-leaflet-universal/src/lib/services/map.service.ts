@@ -23,19 +23,20 @@ export class MapService {
       <div class="map-card">
         <div class="map-card-body">
           <div class="top-card">
-              <img src="${card.image.url}" alt="${card.title.text}" />
+              <img src="${card.image?.url}" alt="${card.title.text}" />
               <div class="content">
                   <h2 class="map-card-title">${card.title.text}</h2>
-                  <h4 class="map-card-subtitle">${card.subtitle.text}</h4>
-                  <h5 class="map-address">${card.address.text}</h5>
+                  <h4 class="map-card-subtitle">${card.subtitle?.text}</h4>
+                  <h5 class="map-address">${card.address?.text}</h5>
               </div>
           </div>
           <div class="map-card-content">
-            ${card.content.text}
+            ${card.content?.text}
           </div>
           <div class="cta-wrapper">
-                  ${card.callToActions.map((cta) => {
-      return /* html */ `<a href="${cta.link}"
+                  ${card.callToActions
+                    ?.map((cta) => {
+                      return /* html */ `<a href="${cta.link}"
                       target="_blank"
                       style="
                       background-color: ${cta.backgroundColor || '#007FFF'};
@@ -43,7 +44,8 @@ export class MapService {
                       class="map-card-cta">
                       ${cta.icon ? `<i class="${cta.icon}"></i>` : ''}
                       ${cta.text}</a>`;
-    }).reduce((a, b) => a + b)}
+                    })
+                    .reduce((a, b) => a + b)}
             </div>
         </div>
       </div>`;

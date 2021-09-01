@@ -1,0 +1,31 @@
+{
+  "name": "ng-leaflet-universal",
+  "version": "0.10.0",
+  "description": "NgLeafletUniversal is an open source Angular module that extends and simplifies the Leaflet implementation for Angular.",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "@types/leaflet": "^1.5.23",
+    "leaflet": "^1.7.1"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rareyesrd/ng-leaflet-universal.git"
+  },
+  "author": "Rafael Reyes, Christian De La Cruz",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/rareyesrd/ng-leaflet-universal.git/issues"
+  },
+  "homepage": "https://github.com/rareyesrd/ng-leaflet-universal.git#readme",
+  "keywords": [
+    "google",
+    "angular",
+    "leaflet",
+    "maps",
+    "openstreetmap"
+  ]
+}
