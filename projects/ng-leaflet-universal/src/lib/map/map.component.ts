@@ -3,6 +3,13 @@ import { MapService } from '../services/map.service';
 import { Marker } from '../models/marker.interface';
 import { Location } from '../models/marker.interface';
 import { BridgeService } from '../services/bridge.service';
+import { RouteService } from '../services/routing.service';
+import {
+  RouteOptions,
+  ROUTE_GEOMETRIE,
+  ROUTE_OVERVIEW,
+  TRANSPORTATION,
+} from '../models/route-options.interface';
 
 @Component({
   selector: 'ng-leaflet-universal',
@@ -16,6 +23,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   markerList: Marker[];
   constructor(
     private mapService: MapService,
+    private routeService: RouteService,
     private bridgeService: BridgeService
   ) {}
 
@@ -160,5 +168,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   // Converts numeric degrees to radians
   toRad(value: number): number {
     return (value * Math.PI) / 180;
+  }
+
+  getRoute(
+    from: Location,
+    to: Location,
+    options: RouteOptions,
+    transportation?: TRANSPORTATION
+  ) {
+    return this.routeService.getRoute(from, to, options, transportation);
   }
 }

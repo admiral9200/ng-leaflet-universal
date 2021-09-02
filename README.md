@@ -55,7 +55,7 @@ It's up to you adding this styles.
 }
 ```
 
-Add marker to your map using the _updateMarkers_ function in your own component
+Add marker to your map using the `updateMarkers` function in your own component
 
 ```typescript
 import { AfterViewInit, Component, ViewChild } from  '@angular/core';
@@ -80,7 +80,7 @@ ngAfterViewInit(): void {
 }
 ```
 
-Once you set or update your marker list using the _updateMarkers_ function, the map will set the view on the center of your markers collection automatically.
+Once you set or update your marker list using the `updateMarkers` function, the map will set the view on the center of your markers collection automatically.
 
 ## Elements / components
 
@@ -155,6 +155,71 @@ This library contains a card component that you can customize and adapt to your 
 	    ],
 	    customStyleClass: 'custom-card-style'
     }
+```
+
+### Route
+
+Finds the fastest route between coordinates in the supplied order.
+
+**Options**: `RouteOptions`
+| Option | Values | Descriptions
+|--|--|--
+|alternatives | true , false (default), or Number | Search for alternative routes. Passing a number alternatives=n searches for up to n alternative routes.
+|steps | true , false (default) | Returned route steps for each route leg
+|annotations | true , false (default) | Returns additional metadata for each coordinate along the route geometry.
+|geometries |polyline (default), polyline6 , geojson | Returned route geometry format (influences overview and per step)
+|overview |simplified (default), full , false | Add overview geometry either full, simplified according to highest zoom level it could be display on, or not at all.
+
+**Example**:
+
+use the `getRoute` function in your own component
+
+**Params**
+
+| Option         | Values                                               | Descriptions                       |
+| -------------- | ---------------------------------------------------- | ---------------------------------- |
+| form           | Location - `{ latitude: number, longitude: number }` | Specify the source location.       |
+| to             | Location - `{ latitude: number, longitude: number }` | Specify the destination location.  |
+| options        | RouteOptions                                         | Specify options.                   |
+| transportation | Transportation - `CAR - default, FOOT, BIKE`         | Specify the mode of transportation |
+
+```typescript
+import { AfterViewInit, Component, ViewChild } from  '@angular/core';
+import { MapComponent } from 'ng-leaflet-universal';
+import {
+  ROUTE_GEOMETRIE,
+  ROUTE_OVERVIEW,
+} from 'ng-leaflet-universal/lib/models/route-options.interface';
+
+@Component({
+	selector:  'app-custom-component',
+	templateUrl:  './custom-component.component.html',
+	styleUrls: ['./custom-component.component.scss'],
+})
+export  class  CustomComponentComponent implements AfterViewInit {
+@ViewChild(MapComponent) mapComponent: MapComponent;
+
+ngAfterViewInit(): void {
+	this.mapComponent.getRoute(
+      {
+        latitude: 13.388860,
+        longitude: 52.517037,
+      },
+      {
+        latitude: 13.397634,
+        longitude: 52.529407,
+      },
+      {
+        steps: true,
+        overview: ROUTE_OVERVIEW.FALSE,
+        annotations: false,
+        geometries: ROUTE_GEOMETRIE.POLYLINE,
+        alternatives: 2,
+      }
+    ).subscribe((res) => {
+        console.log(res);
+      });
+}
 ```
 
 ## Contribuitors
