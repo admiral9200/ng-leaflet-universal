@@ -19,12 +19,12 @@ $marker-height: $marker-width;
 
 ::ng-deep.map-marker-icon {
   .item-marker {
-    border-radius: 50% 50% 50% 0;
-    border: 4px solid #fff;
-    width: $marker-width !important;
-    height: $marker-height !important;
-    background-color: white;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 100% 100% 100% 35%;
+    border: 3px solid #444444;
+    width: 22px !important;
+    height: 22px !important;
+    background-color: #444444;
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.365);
     transform: rotate(316deg);
     overflow: hidden;
 
