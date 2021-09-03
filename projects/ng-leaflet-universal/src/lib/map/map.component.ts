@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { MapService } from '../services/map.service';
 import { Marker } from '../models/marker.interface';
 import { Location } from '../models/marker.interface';
@@ -10,6 +16,7 @@ import {
   ROUTE_OVERVIEW,
   TRANSPORTATION,
 } from '../models/route-options.interface';
+import { GenerateMapId } from '../services/generate-map-id.service';
 
 @Component({
   selector: 'ng-leaflet-universal',
@@ -17,14 +24,18 @@ import {
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit, AfterViewInit {
-  map: any;
   centerLatLng: number[];
-  maxDistance = 0;
   markerList: Marker[];
+  maxDistance = 0;
+  @Input() mapId: string;
+  map: any;
+
   constructor(
-    private mapService: MapService,
+    private bridgeService: BridgeService,
+    private generateMapId: GenerateMapId,
     private routeService: RouteService,
-    private bridgeService: BridgeService
+    private mapService: MapService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -37,10 +48,20 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.centerTo(marker.location);
       }
     });
+
+    if (!this.mapId) {
+      this.generateMapId.ngIdGenerator(
+        this.elementRef.nativeElement.children[0].children[0].children[0]
+      );
+    }
   }
 
   ngAfterViewInit(): void {
-    this.map = this.mapService.L.map('map').setView([0, 0], 1);
+    let self = this;
+
+    this.map = this.mapService.L.map(
+      `${self.elementRef.nativeElement.id}`
+    ).setView([0, 0], 1);
     this.mapService.L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {

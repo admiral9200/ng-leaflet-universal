@@ -72,7 +72,7 @@ export class AppComponent implements AfterViewInit {
         }
       )
       .subscribe((res) => {
-        console.log(res);
+        // console.log(res);
       });
   }
 }
