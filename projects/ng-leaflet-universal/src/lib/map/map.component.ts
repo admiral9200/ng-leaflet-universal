@@ -50,7 +50,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     if (!this.mapId) {
-      this.generateMapId.ngIdGenerator(
+     this.mapId =  this.generateMapId.ngIdGenerator(
         this.elementRef.nativeElement.children[0].children[0].children[0]
       );
     }
@@ -60,7 +60,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     let self = this;
 
     this.map = this.mapService.L.map(
-      `${self.elementRef.nativeElement.id}`
+      `${this.mapId}`
     ).setView([0, 0], 1);
     this.mapService.L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
