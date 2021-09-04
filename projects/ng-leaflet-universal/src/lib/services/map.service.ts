@@ -15,26 +15,26 @@ export class MapService {
     }
   }
 
-  getCardHtml(card: MarkerCard): string {
-    if (card.customHtml) {
+  getCardHtml(card?: MarkerCard): string {
+    if (card?.customHtml) {
       return card.customHtml;
     }
     return /* html */ `
       <div class="map-card">
         <div class="map-card-body">
           <div class="top-card">
-              <img src="${card.image?.url}" alt="${card.title.text}" />
+              <img src="${card?.image?.url}" alt="${card?.title?.text}" />
               <div class="content">
-                  <h2 class="map-card-title">${card.title.text}</h2>
-                  <h4 class="map-card-subtitle">${card.subtitle?.text}</h4>
-                  <h5 class="map-address">${card.address?.text}</h5>
+                  <h2 class="map-card-title">${card?.title?.text}</h2>
+                  <h4 class="map-card-subtitle">${card?.subtitle?.text}</h4>
+                  <h5 class="map-address">${card?.address?.text}</h5>
               </div>
           </div>
           <div class="map-card-content">
-            ${card.content?.text}
+            ${card?.content?.text}
           </div>
           <div class="cta-wrapper">
-                  ${card.callToActions
+                  ${card?.callToActions
                     ?.map((cta) => {
                       return /* html */ `<a href="${cta.link}"
                       target="_blank"

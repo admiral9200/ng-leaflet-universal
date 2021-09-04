@@ -1,6 +1,6 @@
 export interface MarkerCard {
   image?: CardImage;
-  title: CardText;
+  title?: CardText;
   subtitle?: CardText;
   address?: CardText;
   content?: CardText;

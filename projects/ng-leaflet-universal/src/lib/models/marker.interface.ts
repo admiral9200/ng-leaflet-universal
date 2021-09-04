@@ -4,7 +4,7 @@ export interface Marker {
   id: string;
   location: Location;
   icon: string;
-  card: MarkerCard;
+  card?: MarkerCard;
 }
 
 export interface Location {
