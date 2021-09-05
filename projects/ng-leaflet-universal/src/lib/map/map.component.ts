@@ -79,15 +79,17 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   displayCard(data: Marker, markerSelected: any): void {
-    this.centerTo(data.location);
-    const html = this.mapService.getCardHtml(data.card);
-    if (!markerSelected._popup) {
-      const popup = markerSelected.bindPopup(html, {
-        autoClose: false,
-        maxWidth: 200,
-      });
-      popup.openPopup();
-      return;
+    if (data?.card) {
+      const html = this.mapService.getCardHtml(data.card);
+
+      if (!markerSelected._popup) {
+        const popup = markerSelected.bindPopup(html, {
+          autoClose: false,
+          maxWidth: 200,
+        });
+        popup.openPopup();
+        return;
+      }
     }
     markerSelected._popup.openPopup();
   }
@@ -103,9 +105,10 @@ export class MapComponent implements OnInit, AfterViewInit {
         className: 'map-marker-icon',
       })
     );
-    singleMarker
-      .addTo(this.map)
-      .on('click', () => this.displayCard(itemMarker, singleMarker));
+    singleMarker.addTo(this.map).on('click', () => {
+      this.centerTo(itemMarker.location);
+      this.displayCard(itemMarker, singleMarker);
+    });
   }
 
   calculateCenter(markers: Marker[]): void {

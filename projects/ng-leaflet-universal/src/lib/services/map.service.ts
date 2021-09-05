@@ -15,7 +15,7 @@ export class MapService {
     }
   }
 
-  getCardHtml(card?: MarkerCard): string {
+  getCardHtml(card: MarkerCard): string {
     if (card?.customHtml) {
       return card.customHtml;
     }
