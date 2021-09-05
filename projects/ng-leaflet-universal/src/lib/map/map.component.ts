@@ -57,8 +57,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    let self = this;
-
     this.map = this.mapService.L.map(`${this.mapId}`).setView([0, 0], 1);
     this.mapService.L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -122,7 +120,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     const maxLat = latitudes[latitudes.length - 1];
 
     const minLng = longitudes[0];
-    const maxLng = longitudes[latitudes.length - 1];
+    const maxLng = longitudes[longitudes.length - 1];
 
     const centerLat = (minLat + maxLat) / 2;
     const centetLng = (minLng + maxLng) / 2;
@@ -154,13 +152,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     if (this.maxDistance > 0) {
       while (ratio > this.maxDistance) {
-        ratio = ratio * 0.67;
+        ratio = ratio * 0.52;
         zoom++;
       }
     } else {
       zoom = 14;
     }
-
     return zoom;
   }
 
