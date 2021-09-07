@@ -76,28 +76,11 @@ export class AppComponent implements AfterViewInit {
         </span>
       `,
       card: {
-        image: { url: 'https://picsum.photos/200/200' },
-        title: { text: 'The place', customStyleClass: 'awesome-title' },
-        subtitle: { text: 'The best place' },
-        content: {
-          text: '<p> This is the content that will be used in the <b> card </b> </p>',
-        },
-        address: { text: 'Neverland, NM 88203' },
-        callToActions: [
-          {
-            text: 'View details',
-            link: 'https://myawesomeapp.domain/Location-1',
-            customStyleClass: 'my-details-button',
-          },
-          {
-            text: 'Directions',
-            backgroundColor: '#007319',
-            textColor: '#fff',
-            link: `https://www.google.com/maps/@-81.1288,-81.4579,18.13z`,
-            icon: 'fas fa-directions',
-          },
-        ],
-        customStyleClass: 'custom-card-style',
+        customHtml: /*html*/ `
+        <div style="cursor: pointer">
+        <a>Av. Jonh F. Kennedy, Plaza Galería 360, Santo Domingo.</a> 
+      </div>
+        `,
       },
     },
   ];

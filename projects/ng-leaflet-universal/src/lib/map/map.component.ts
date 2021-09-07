@@ -67,7 +67,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   centerTo(location: Location): void {
-    this.map.setView([location.latitude, location.longitude], 10);
+    this.map.setView([location.latitude, location.longitude], 15);
   }
 
   updateMarkers(markers: Marker[]): void {
@@ -101,7 +101,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     ]);
     singleMarker.setIcon(
       this.mapService.L.divIcon({
-        html: itemMarker.html || /*html*/ `<div class="item-marker"><div class="icon-image" style="background-image: url('${itemMarker.icon}')"></div>`,
+        html:
+          itemMarker.html ||
+          /*html*/ `<div class="item-marker"><div class="icon-image" style="background-image: url('${itemMarker.icon}')"></div>`,
         className: 'map-marker-icon',
       })
     );
