@@ -1,0 +1,6 @@
+::ng-deep .marker-style{
+    background-color: white;
+    padding: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.564);
+    border-radius: 10px;
+}

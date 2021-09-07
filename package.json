@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build ng-leaflet-universal",
+    "deploy": "ng build ng-leaflet-universal && cd dist/ng-leaflet-universal && npm deploy",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

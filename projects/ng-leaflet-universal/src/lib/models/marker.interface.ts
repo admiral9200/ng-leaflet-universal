@@ -3,8 +3,9 @@ import { MarkerCard } from './marker-card.interface';
 export interface Marker {
   id: string;
   location: Location;
-  icon: string;
+  icon?: string;
   card?: MarkerCard;
+  html?: string;
 }
 
 export interface Location {

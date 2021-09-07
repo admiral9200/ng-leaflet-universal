@@ -101,7 +101,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     ]);
     singleMarker.setIcon(
       this.mapService.L.divIcon({
-        html: /*html*/ `<div class="item-marker"><div class="icon-image" style="background-image: url('${itemMarker.icon}')"></div>`,
+        html: itemMarker.html || /*html*/ `<div class="item-marker"><div class="icon-image" style="background-image: url('${itemMarker.icon}')"></div>`,
         className: 'map-marker-icon',
       })
     );

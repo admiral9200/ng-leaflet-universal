@@ -66,11 +66,15 @@ export class AppComponent implements AfterViewInit {
     },
     {
       id: 'abc123',
-      icon: 'https://picsum.photos/200/200',
       location: {
         latitude: 19.11683,
         longitude: -70.63595,
       },
+      html: /*html*/ `
+        <span class="marker-style">
+          Hi
+        </span>
+      `,
       card: {
         image: { url: 'https://picsum.photos/200/200' },
         title: { text: 'The place', customStyleClass: 'awesome-title' },
