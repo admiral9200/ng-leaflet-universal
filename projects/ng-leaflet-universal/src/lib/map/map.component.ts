@@ -17,6 +17,7 @@ import {
   TRANSPORTATION,
 } from '../models/route-options.interface';
 import { GenerateMapId } from '../services/generate-map-id.service';
+import { Point } from 'leaflet';
 
 @Component({
   selector: 'ng-leaflet-universal',
@@ -86,6 +87,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         const popup = markerSelected.bindPopup(html, {
           autoClose: false,
           maxWidth: 200,
+          // offset: new Point(0, 0)
         });
         popup.openPopup();
         return;

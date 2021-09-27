@@ -17,6 +17,10 @@ $marker-height: $marker-width;
   }
 }
 
+::ng-deep.leaflet-popup-tip {
+  border-radius: 0 0 20% 0 !important;
+}
+
 ::ng-deep.map-marker-icon {
   .item-marker {
     border-radius: 100% 100% 100% 35%;
@@ -61,8 +65,8 @@ $marker-height: $marker-width;
 }
 
 ::ng-deep.leaflet-popup {
-  bottom: 5px !important;
-  left: -180px !important;
+  bottom: 32px !important;
+  // left: -180px !important;
 }
 
 ::ng-deep.leaflet-popup-content {
