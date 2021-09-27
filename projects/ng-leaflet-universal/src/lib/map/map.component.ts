@@ -68,7 +68,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   centerTo(location: Location): void {
-    this.map.setView([location.latitude, location.longitude], 10);
+    this.map.setView([location.latitude, location.longitude], 15);
   }
 
   updateMarkers(markers: Marker[]): void {
