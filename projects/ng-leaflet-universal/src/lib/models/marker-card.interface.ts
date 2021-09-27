@@ -27,12 +27,12 @@ export interface CardText {
 }
 
 export interface CardStyle {
-  backgroundColor: string;
-  borderRadius: string;
-  elevation: number;
-  opacity: number;
-  enabledTextOpacity: boolean;
-  customStyleClass: string;
+  backgroundColor?: string;
+  borderRadius?: string;
+  elevation?: number;
+  opacity?: number;
+  enabledTextOpacity?: boolean;
+  customStyleClass?: string;
 }
 
 export class CardCallToAction {
