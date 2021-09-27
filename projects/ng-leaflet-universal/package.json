@@ -1,6 +1,6 @@
 {
   "name": "ng-leaflet-universal",
-  "version": "0.11.9",
+  "version": "0.12.0",
   "description": "NgLeafletUniversal is an open source Angular module that extends and simplifies the Leaflet implementation for Angular.",
   "peerDependencies": {
     "@angular/common": "^12.2.0",
