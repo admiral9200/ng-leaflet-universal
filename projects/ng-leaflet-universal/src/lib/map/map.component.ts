@@ -2,8 +2,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import { MapService } from '../services/map.service';
 import { Marker } from '../models/marker.interface';
@@ -12,12 +14,9 @@ import { BridgeService } from '../services/bridge.service';
 import { RouteService } from '../services/routing.service';
 import {
   RouteOptions,
-  ROUTE_GEOMETRIE,
-  ROUTE_OVERVIEW,
   TRANSPORTATION,
 } from '../models/route-options.interface';
 import { GenerateMapId } from '../services/generate-map-id.service';
-import { Point } from 'leaflet';
 
 @Component({
   selector: 'ng-leaflet-universal',
@@ -25,6 +24,7 @@ import { Point } from 'leaflet';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit, AfterViewInit {
+  @Output() mapEvent: EventEmitter<any> = new EventEmitter<any>();
   centerLatLng: number[];
   markerList: Marker[];
   maxDistance = 0;
@@ -115,10 +115,19 @@ export class MapComponent implements OnInit, AfterViewInit {
         iconAnchor: [13, 30],
       })
     );
+
     singleMarker.addTo(this.map).on('click', () => {
-      this.centerTo(itemMarker.location);
-      this.displayCard(itemMarker, singleMarker);
+      this.mapEvent.emit(itemMarker);
+      if (itemMarker.cardActivated) {
+        this.centerTo(itemMarker.location);
+        this.displayCard(itemMarker, singleMarker);
+      }
     });
+
+    // singleMarker.addTo(this.map).on('mouseover', () => {
+    //   this.centerTo(itemMarker.location);
+    //   this.displayCard(itemMarker, singleMarker);
+    // });
   }
 
   calculateCenter(markers: Marker[]): void {

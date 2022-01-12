@@ -6,6 +6,7 @@ export interface Marker {
   icon?: string;
   card?: MarkerCard;
   html?: string;
+  cardActivated?: boolean;
 }
 
 export interface Location {

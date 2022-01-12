@@ -23,6 +23,7 @@ export class AppComponent implements AfterViewInit {
         latitude: 18.477969373525823,
         longitude: -69.93744767947386,
       },
+      cardActivated: false,
     },
     {
       id: 'abc123',
@@ -31,6 +32,7 @@ export class AppComponent implements AfterViewInit {
         latitude: 18.498113509026137,
         longitude: -69.99517712890616,
       },
+      cardActivated: false,
     },
     {
       id: 'abc123',
@@ -39,6 +41,7 @@ export class AppComponent implements AfterViewInit {
         latitude: 18.47383,
         longitude: -66.93851,
       },
+      cardActivated: true,
       card: {
         image: { url: 'https://picsum.photos/200/200' },
         title: { text: 'The place', customStyleClass: 'awesome-title' },
