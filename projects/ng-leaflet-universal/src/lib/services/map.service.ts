@@ -1,17 +1,25 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+
 import { CardText, MarkerCard } from '../models/marker-card.interface';
-declare const require: any;
+import { divIcon, map, Marker, tileLayer } from 'leaflet';
+
 @Injectable({
   providedIn: 'root',
 })
 export class MapService {
-  public L: any = null;
+  public map: typeof map;
+  public Marker: typeof Marker;
+  public divIcon: typeof divIcon;
+  public tileLayer: typeof tileLayer;
 
   // tslint:disable-next-line:ban-types
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(platformId)) {
-      this.L = require('leaflet');
+  constructor(@Inject(PLATFORM_ID) private platformId: string) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.map = map;
+      this.Marker = Marker;
+      this.divIcon = divIcon;
+      this.tileLayer = tileLayer;
     }
   }
 

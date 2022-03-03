@@ -3,9 +3,11 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Inject,
   Input,
   OnInit,
   Output,
+  PLATFORM_ID,
 } from '@angular/core';
 import { MapService } from '../services/map.service';
 import { Marker } from '../models/marker.interface';
@@ -17,6 +19,8 @@ import {
   TRANSPORTATION,
 } from '../models/route-options.interface';
 import { GenerateMapId } from '../services/generate-map-id.service';
+import { isPlatformBrowser } from '@angular/common';
+import { LatLngExpression, Map } from 'leaflet';
 
 @Component({
   selector: 'ng-leaflet-universal',
@@ -25,13 +29,15 @@ import { GenerateMapId } from '../services/generate-map-id.service';
 })
 export class MapComponent implements OnInit, AfterViewInit {
   @Output() mapEvent: EventEmitter<any> = new EventEmitter<any>();
-  centerLatLng: number[];
-  markerList: Marker[];
-  maxDistance = 0;
   @Input() mapId: string;
-  map: any;
+
+  centerLatLng: LatLngExpression;
+  maxDistance: number = 0;
+  markerList: Marker[];
+  map: Map;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: string,
     private bridgeService: BridgeService,
     private generateMapId: GenerateMapId,
     private routeService: RouteService,
@@ -58,13 +64,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.map = this.mapService.L.map(`${this.mapId}`).setView([0, 0], 1);
-    this.mapService.L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        attribution: 'Map data © OpenStreetMap contributors',
-      }
-    ).addTo(this.map);
+    if (isPlatformBrowser(this.platformId)) {
+      this.map = this.mapService.map(`${this.mapId}`).setView([0, 0], 1);
+      this.mapService
+        .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: 'Map data © OpenStreetMap contributors',
+        })
+        .addTo(this.map);
+    }
   }
 
   centerTo(location: Location): void {
@@ -97,12 +104,12 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   addMarker(itemMarker: Marker): void {
-    const singleMarker = new this.mapService.L.Marker([
+    const singleMarker = new this.mapService.Marker([
       itemMarker.location.latitude,
       itemMarker.location.longitude,
     ]);
     singleMarker.setIcon(
-      this.mapService.L.divIcon({
+      this.mapService.divIcon({
         html:
           itemMarker.html ||
           /*html*/ `
