@@ -93,7 +93,6 @@ export class MapComponent implements OnInit, AfterViewInit {
         const popup = markerSelected.bindPopup(html, {
           autoClose: false,
           maxWidth: 200,
-          // offset: new Point(0, 0)
         });
         popup.openPopup();
         return;
@@ -111,7 +110,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.mapService.L.divIcon({
         html:
           itemMarker.html ||
-          /*html*/ `
+          `
           <div class="item-marker">
               <div class="icon-image" style="background-image: url('${itemMarker.icon}')">
               </div>
@@ -129,11 +128,6 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.displayCard(itemMarker, singleMarker);
       }
     });
-
-    // singleMarker.addTo(this.map).on('mouseover', () => {
-    //   this.centerTo(itemMarker.location);
-    //   this.displayCard(itemMarker, singleMarker);
-    // });
   }
 
   calculateCenter(markers: Marker[]): void {
