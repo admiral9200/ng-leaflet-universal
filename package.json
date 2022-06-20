@@ -1,6 +1,6 @@
 {
   "name": "angular-leaflet-universal",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,14 +11,14 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~12.2.0",
-    "@angular/common": "~12.2.0",
-    "@angular/compiler": "~12.2.0",
-    "@angular/core": "~12.2.0",
-    "@angular/forms": "~12.2.0",
-    "@angular/platform-browser": "~12.2.0",
-    "@angular/platform-browser-dynamic": "~12.2.0",
-    "@angular/router": "~12.2.0",
+    "@angular/animations": "^12.2.0 || ^13.3.11",
+    "@angular/common": "^12.2.0 || ^13.3.11",
+    "@angular/compiler": "^12.2.0 || ^13.3.11",
+    "@angular/core": "^12.2.0 || ^13.3.11",
+    "@angular/forms": "^12.2.0 || ^13.3.11",
+    "@angular/platform-browser": "^12.2.0 || ^13.3.11",
+    "@angular/platform-browser-dynamic": "^12.2.0 || ^13.3.11",
+    "@angular/router": "^12.2.0 || ^13.3.11",
     "leaflet": "^1.7.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
@@ -39,5 +39,8 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^12.1.1",
     "typescript": "~4.3.5"
+  },
+  "engines": {
+    "node": "^12.14.1 || >=14.0.0"
   }
 }
