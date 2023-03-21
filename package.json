@@ -1,6 +1,6 @@
 {
   "name": "angular-leaflet-universal",
-  "version": "0.13.0",
+  "version": "15.2.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
