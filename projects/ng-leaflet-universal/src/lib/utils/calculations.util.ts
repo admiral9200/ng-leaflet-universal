@@ -48,18 +48,18 @@ export function calculateCenterBoundingBox(markers: Array<Marker>) {
 
   const difference = { latitude: maxLat - minLat, longitude: maxLng - minLng };
 
-  const latitude = { min: 0, max: 0 };
-  const longitude = { min: 0, max: 0 };
+  const minimum: Point = [0, 0];
+  const maximum: Point = [0, 0];
 
   if (difference.latitude > difference.longitude) {
-    latitude.min = minLat;
-    latitude.max = maxLat;
+    minimum[0] = minLat;
+    maximum[0] = maxLat;
   } else {
-    longitude.min = minLng;
-    longitude.max = maxLng;
+    minimum[1] = minLng;
+    maximum[1] = maxLng;
   }
 
-  return { latitude, longitude, center };
+  return { minimum, maximum, center };
 }
 
 export function calculateZoom(maxDistance = 0) {

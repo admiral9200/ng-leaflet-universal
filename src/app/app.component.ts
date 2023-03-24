@@ -1,18 +1,15 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MapComponent } from 'projects/ng-leaflet-universal/src/lib/map.component';
-import { Marker } from 'projects/ng-leaflet-universal/src/lib/models/marker.interface';
+import { Marker } from 'projects/ng-leaflet-universal/src/lib/models';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'angular-leaflet-universal';
 
-  @ViewChild(MapComponent) mapComponent: MapComponent;
-
-  markers: Marker[] = [
+  markers: Array<Marker> = [
     {
       id: 'abc123',
       icon: 'https://picsum.photos/200/200',
@@ -84,8 +81,4 @@ export class AppComponent implements AfterViewInit {
       },
     },
   ];
-
-  ngAfterViewInit(): void {
-    this.mapComponent?.updateMarkers(this.markers);
-  }
 }

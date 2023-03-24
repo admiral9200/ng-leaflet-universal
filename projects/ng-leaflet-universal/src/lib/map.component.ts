@@ -1,15 +1,11 @@
-import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
-import type { Map, LatLngExpression, Marker as LeafletMarker } from 'leaflet';
-import { Subject } from 'rxjs';
-import L from 'leaflet';
+import { AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { map, tileLayer, divIcon, Marker as LeafletMarker } from 'leaflet';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import type { Map } from 'leaflet';
 
-import { Marker, Location, MarkerCard } from './models';
-import {
-  calculateCenterBoundingBox,
-  calculateZoom,
-  distanceBetweenCoordinates,
-  generate,
-} from './utils';
+import { calculateCenterBoundingBox, calculateZoom } from './utils';
+import { distanceBetweenCoordinates, generate } from './utils';
+import { Marker, MarkerCard } from './models';
 
 @Component({
   selector: 'ng-leaflet-universal',
@@ -21,53 +17,36 @@ import {
     </div>
   `,
   styleUrls: ['./map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements AfterViewInit {
   @Output() mapEvent = new EventEmitter<Marker>();
+  @Input() markers: Array<Marker>;
 
   id = generate('div');
-  selectedCard = new Subject<string>();
   maxDistance = 0;
 
-  centerPoint: LatLngExpression;
-  markers: Array<Marker>;
   map: Map;
 
   ngAfterViewInit() {
-    this.map = L.map(this.id).setView([0, 0], 1);
+    this.map = map(this.id).setView([0, 0], 1);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data © OpenStreetMap contributors',
     }).addTo(this.map);
 
-    this.selectedCard.forEach((card) => {
-      const marker = this.markers.find(({ id }) => id === card);
-
-      if (marker) this.centerTo(marker.location);
-    });
+    this.updateMarkers(this.markers);
   }
 
-  centerTo(location: Location) {
-    this.map.setView([location.latitude, location.longitude], 15);
-  }
+  updateMarkers(markers: Array<Marker>) {
+    if (!markers) return;
 
-  updateMarkers(markers = new Array<Marker>()) {
-    if (!markers.length) return;
-
-    this.markers = markers;
+    const { center, minimum, maximum } = calculateCenterBoundingBox(markers);
 
     markers.forEach((item) => this.addMarker(item));
 
-    const { center, latitude, longitude } = calculateCenterBoundingBox(markers);
-
-    this.centerPoint = center;
-
-    this.maxDistance = distanceBetweenCoordinates(
-      [latitude.min, longitude.min],
-      [latitude.max, longitude.max]
-    );
-
-    this.map.setView(this.centerPoint, calculateZoom(this.maxDistance));
+    this.maxDistance = distanceBetweenCoordinates(minimum, maximum);
+    this.map.setView(center, calculateZoom(this.maxDistance));
   }
 
   displayCard(data: Marker, selected: LeafletMarker) {
@@ -88,11 +67,12 @@ export class MapComponent implements AfterViewInit {
   }
 
   addMarker(marker: Marker) {
-    const leafletMarker = new L.Marker({
+    const leafletMarker = new LeafletMarker({
       lat: marker.location.latitude,
       lng: marker.location.longitude,
     });
-    const icon = L.divIcon({
+
+    const icon = divIcon({
       html:
         marker.html ||
         `
@@ -111,8 +91,11 @@ export class MapComponent implements AfterViewInit {
       this.mapEvent.emit(marker);
 
       if (marker.cardActivated) {
-        this.centerTo(marker.location);
+        const { latitude, longitude } = marker.location;
+
         this.displayCard(marker, leafletMarker);
+
+        this.map.setView([latitude, longitude], 15);
       }
     });
   }
