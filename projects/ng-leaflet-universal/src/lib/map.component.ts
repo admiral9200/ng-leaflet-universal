@@ -44,7 +44,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   }
 
   updateMarkers(markers: Array<Marker> | null) {
-    if (!markers) return;
+    if (!markers?.length) return;
 
     const leafletMarkers = markers.map(createLeafletMarker).map((marker, i) => {
       return marker.on('click', () => this.mapEvent.emit(markers[i]));
