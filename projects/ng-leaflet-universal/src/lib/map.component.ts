@@ -52,6 +52,14 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
     const group = new FeatureGroup(leafletMarkers);
 
+    this.map.eachLayer((layer) => {
+      // Ignore tile layer
+      if (layer.options?.attribution) return;
+
+      // Previous (markers)
+      layer.remove();
+    });
+
     group.addTo(this.map);
 
     this.map.fitBounds(group.getBounds());
