@@ -43,15 +43,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     this.updateMarkers(this.markers);
   }
 
-  updateMarkers(markers: Array<Marker> | null) {
-    if (!markers?.length) return;
-
-    const leafletMarkers = markers.map(createLeafletMarker).map((marker, i) => {
-      return marker.on('click', () => this.mapEvent.emit(markers[i]));
-    });
-
-    const group = new FeatureGroup(leafletMarkers);
-
+  removeMarkers() {
     this.map.eachLayer((layer) => {
       // Ignore tile layer
       if (layer.options?.attribution) return;
@@ -59,6 +51,18 @@ export class MapComponent implements AfterViewInit, OnChanges {
       // Previous (markers)
       layer.remove();
     });
+  }
+
+  updateMarkers(markers: Array<Marker> | null) {
+    this.removeMarkers();
+
+    if (!markers?.length) return;
+
+    const leafletMarkers = markers.map(createLeafletMarker).map((marker, i) => {
+      return marker.on('click', () => this.mapEvent.emit(markers[i]));
+    });
+
+    const group = new FeatureGroup(leafletMarkers);
 
     group.addTo(this.map);
 
